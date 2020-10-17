@@ -107,7 +107,7 @@ X_train_explore.drop([x for x in df if x.endswith('_outliers')], 1, inplace = Tr
 
 def elbow_plot(X_train_scaled, cluster_vars):
     # elbow method to identify good k for us
-    ks = range(2,20)
+    ks = range(2,10)
     
     # empty list to hold inertia (sum of squares)
     sse = []
@@ -127,5 +127,19 @@ def elbow_plot(X_train_scaled, cluster_vars):
     plt.ylabel('SSE')
     plt.title('Elbow method to find optimal k')
     plt.show()
+
+##################################################################################################################
+
+def run_kmeans(X_train_scaled, k, cluster_vars, cluster_col_name):
+    # create kmeans object
+    kmeans = KMeans(n_clusters = k, random_state = 13)
+    kmeans.fit(X_train_scaled[cluster_vars])
+    # predict and create a dataframe with cluster per observation
+    train_clusters = \
+        pd.DataFrame(kmeans.predict(X_train_scaled[cluster_vars]),
+                              columns=[cluster_col_name],
+                              index=X_train.index)
+    
+    return train_clusters, kmeans
 
 ##################################################################################################################
