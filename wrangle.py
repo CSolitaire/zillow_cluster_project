@@ -92,7 +92,7 @@ def remove_outliers(df):
     df[((df.bathroomcnt <= 7) & (df.bedroomcnt <= 7) & 
                (df.regionidzip < 100000) & 
                (df.bathroomcnt > 0) & 
-               (df.bedroomcnt > 0) & 
+               (df.bedroomcnt > 1) & 
                (df.acres < 10) &
                (df.calculatedfinishedsquarefeet < 7000) & 
                (df.taxrate < .05)
@@ -243,7 +243,7 @@ def col_to_drop_post_processing(train, validate, test):
                'taxvaluedollarcnt', 'structuretaxvaluedollarcnt',
                'landtaxvaluedollarcnt', 'yearbuilt', 
                'lotsizesquarefeet','regionidzip',"rawcensustractandblock", 
-               "assessmentyear", "censustractandblock", "unitcnt"]
+               "assessmentyear", "censustractandblock", "unitcnt", 'roomcnt']
     train = train.drop(columns = cols_to_drop)
     validate = validate.drop(columns = cols_to_drop)
     test = test.drop(columns = cols_to_drop)
