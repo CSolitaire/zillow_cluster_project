@@ -256,7 +256,7 @@ def clean_zillow(df):
     df = get_counties(df)
     train, validate, test = split(df)
     train, validate, test = clean_data(train, validate, test)
-    train, validate, test = remove_columns(train, validate, test, cols_to_remove=['buildingqualitytypeid','finishedsquarefeet12','fullbathcnt', 'regionidcounty',"regionidcity",'tdate', 'parcelid', 'propertycountylandusecode'])
+    train, validate, test = remove_columns(train, validate, test, cols_to_remove=['buildingqualitytypeid','finishedsquarefeet12','fullbathcnt', 'regionidcounty',"regionidcity",'tdate', 'parcelid', 'propertycountylandusecode','county'])
     train, validate, test = handle_missing_values(train, validate, test)
     train, validate, test = processing(train, validate, test) 
     train, validate, test = col_to_drop_post_processing(train, validate, test)
@@ -266,7 +266,7 @@ def clean_zillow(df):
 ###########################################################
 
 def cat_columns(X_train, X_validate, X_test):
-    cols = ["heatingorsystemdesc","propertylandusedesc","county"]
+    cols = ["heatingorsystemdesc","propertylandusedesc"]
     X_train[cols] = X_train[cols].astype("category")
     X_validate[cols] = X_validate[cols].astype("category")
     X_test[cols] = X_test[cols].astype("category")
@@ -278,10 +278,6 @@ def cat_code_zillow(X_train, X_validate, X_test):
     '''
     This function take train dataset and  categorical variables and splits them in to cat.codes for modeling
     '''
-    ############################################################################################
-    X_train["county"] = X_train["county"].cat.codes
-    X_validate["county"] = X_validate["county"].cat.codes
-    X_test["county"] = X_test["county"].cat.codes
     ############################################################################################
     X_train["heatingorsystemdesc"] = X_train["heatingorsystemdesc"].cat.codes
     X_validate["heatingorsystemdesc"] = X_validate["heatingorsystemdesc"].cat.codes
