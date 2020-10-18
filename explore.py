@@ -130,7 +130,7 @@ def elbow_plot(X_train_scaled, cluster_vars):
 
 ##################################################################################################################
 
-def run_kmeans(X_train_scaled, k, cluster_vars, cluster_col_name):
+def run_kmeans(X_train, X_train_scaled, k, cluster_vars, cluster_col_name):
     # create kmeans object
     kmeans = KMeans(n_clusters = k, random_state = 13)
     kmeans.fit(X_train_scaled[cluster_vars])
