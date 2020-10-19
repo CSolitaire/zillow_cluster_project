@@ -174,8 +174,14 @@ def split_scale(df):
     # transform X_test values to their scaled equivalent and create df of the scaled features   
     X_test_scaled = pd.DataFrame(scaler.transform(X_test), 
                                  columns=X_test.columns.values).set_index([X_test.index.values])
+
+    # create the scaler object and fit to X_train (get the min and max from X_train for each column)
+    scaler_explore = MinMaxScaler(copy=True, feature_range=(0,1)).fit(X_train_explore)
+    # transform X_train values to their scaled equivalent and create df of the scaled features
+    X_train_explore_scaled = pd.DataFrame(scaler_explore.transform(X_train_explore), 
+                                    columns=X_train_explore.columns.values).set_index([X_train_explore.index.values])
     
-    return X_train, X_validate, X_test, X_train_explore, y_train, y_validate, y_test, X_train_scaled, X_validate_scaled, X_test_scaled
+    return X_train, X_validate, X_test, X_train_explore, X_train_explore_scaled, y_train, y_validate, y_test, X_train_scaled, X_validate_scaled, X_test_scaled
 
 ###########################################################
 
