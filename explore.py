@@ -144,6 +144,17 @@ def run_kmeans(X_train, X_train_scaled, k, cluster_vars, cluster_col_name):
 
 ##################################################################################################################
 
+def kmeans_transform(X_scaled, kmeans, cluster_vars, cluster_col_name):
+    kmeans.transform(X_scaled[cluster_vars])
+    trans_clusters = \
+        pd.DataFrame(kmeans.predict(X_scaled[cluster_vars]),
+                              columns=[cluster_col_name],
+                              index=X_scaled.index)
+    
+    return trans_clusters
+
+##################################################################################################################
+
 def get_centroids(cluster_vars, cluster_col_name, kmeans):
     centroid_col_names = ['centroid_' + i for i in cluster_vars]
 
