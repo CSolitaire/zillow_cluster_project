@@ -137,12 +137,14 @@ def clean_zillow_data(df):
     df = create_features(df)
     df = remove_outliers(df)
     df = col_to_drop_post_feature_creation(df)
+    mask = df['bed_bath_ratio'] != np.inf
+    df.loc[~mask, 'bed_bath_ratio'] = df.loc[mask, 'bed_bath_ratio'].max()
     df_la, df_v, df_o = county_df(df)
     return df_la, df_v, df_o
 
 ###########################################################
 
-def train_valid_test(df):
+def split_scale(df):
     train_validate, test = train_test_split(df, test_size = .2, random_state = 123)
     train, validate = train_test_split(train_validate, test_size = .3, random_state = 123)
     
@@ -156,12 +158,7 @@ def train_valid_test(df):
     y_train = train[['logerror']]
     y_validate = validate[['logerror']]
     y_test = test[['logerror']]
-    
-    return X_train, X_validate, X_test, X_train_explore, y_train, y_validate, y_test
 
-###########################################################
-
-def scale_min_max(X_train, X_validate, X_test):
     # create the scaler object and fit to X_train (get the min and max from X_train for each column)
     scaler = MinMaxScaler(copy=True, feature_range=(0,1)).fit(X_train)
 
@@ -177,7 +174,9 @@ def scale_min_max(X_train, X_validate, X_test):
     X_test_scaled = pd.DataFrame(scaler.transform(X_test), 
                                  columns=X_test.columns.values).set_index([X_test.index.values])
     
-    return X_train_scaled, X_validate_scaled, X_test_scaled
+    return X_train, X_validate, X_test, X_train_explore, y_train, y_validate, y_test, X_train_scaled, X_validate_scaled, X_test_scaled
+
+###########################################################
 
 
 ################## Explore ##############################################################################################
