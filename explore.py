@@ -143,3 +143,35 @@ def run_kmeans(X_train, X_train_scaled, k, cluster_vars, cluster_col_name):
     return train_clusters, kmeans
 
 ##################################################################################################################
+
+def get_centroids(cluster_vars, cluster_col_name, kmeans):
+    centroid_col_names = ['centroid_' + i for i in cluster_vars]
+
+    centroids = pd.DataFrame(kmeans.cluster_centers_, 
+             columns=centroid_col_names).reset_index().rename(columns={'index': cluster_col_name})
+    
+    return centroids
+
+##################################################################################################################
+
+def add_to_train(train_clusters, centroids, X_train, X_train_scaled, cluster_col_name):
+    # concatenate cluster id
+    X_train2 = pd.concat([X_train, train_clusters], axis=1)
+
+    # join on clusterid to get centroids
+    X_train2 = X_train2.merge(centroids, how='left', 
+                            on=cluster_col_name).\
+                        set_index(X_train.index)
+    
+    # concatenate cluster id
+    X_train_scaled2 = pd.concat([X_train_scaled, train_clusters], 
+                               axis=1)
+
+    # join on clusterid to get centroids
+    X_train_scaled2 = X_train_scaled2.merge(centroids, how='left', 
+                                          on=cluster_col_name).\
+                            set_index(X_train.index)
+    
+    return X_train2, X_train_scaled2
+
+##################################################################################################################
