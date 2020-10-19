@@ -112,7 +112,7 @@ def remove_outliers(df):
 def col_to_drop_post_feature_creation(df):
     cols_to_drop = ['bedroomcnt', 'taxamount', 
                'taxvaluedollarcnt', 'structuretaxvaluedollarcnt',
-               'landtaxvaluedollarcnt','lotsizesquarefeet', "regionidzip", "yearbuilt"]
+               'landtaxvaluedollarcnt','lotsizesquarefeet', "regionidzip", "yearbuilt",'parcelid','regionidcity']
     df = df.drop(columns = cols_to_drop)
     return df
 
