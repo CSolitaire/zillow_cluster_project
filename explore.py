@@ -107,7 +107,7 @@ X_train_explore.drop([x for x in df if x.endswith('_outliers')], 1, inplace = Tr
 
 def elbow_plot(X_train_scaled, cluster_vars):
     # elbow method to identify good k for us
-    ks = range(2,10)
+    ks = range(1,10)
     
     # empty list to hold inertia (sum of squares)
     sse = []

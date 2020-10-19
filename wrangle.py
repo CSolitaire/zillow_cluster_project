@@ -130,7 +130,7 @@ def clean_zillow_data(df):
     '''
     This function drops colums that are duplicated or unneessary, creates new features, and changes column labels
     '''
-    df.dropna(inplace=True)
+    #df.dropna(inplace=True)
     df.latitude = df.latitude / 1000000
     df.longitude = df.longitude / 1000000
     df = get_counties(df)
@@ -139,6 +139,7 @@ def clean_zillow_data(df):
     df = col_to_drop_post_feature_creation(df)
     mask = df['bed_bath_ratio'] != np.inf
     df.loc[~mask, 'bed_bath_ratio'] = df.loc[mask, 'bed_bath_ratio'].max()
+    df.dropna(inplace=True)
     df_la, df_v, df_o = county_df(df)
     return df_la, df_v, df_o
 
