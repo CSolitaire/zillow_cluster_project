@@ -18,6 +18,9 @@ import matplotlib.pyplot as plt
 ################## Explore ##############################################################################################
 
 def nulls_by_col(df):
+    '''
+    Calucluates null by column
+    '''
     num_missing = df.isnull().sum()
     rows = df.shape[0]
     pct_missing = num_missing / rows
@@ -25,6 +28,9 @@ def nulls_by_col(df):
     return cols_missing
 
 def nulls_by_row(df):
+    '''
+    Calculates null by row
+    '''
     num_cols_missing = df.isnull().sum(axis=1)
     pct_cols_missing = df.isnull().sum(axis=1)/df.shape[1]*100
     rows_missing = pd.DataFrame({'num_cols_missing': num_cols_missing, 'pct_cols_missing': pct_cols_missing}).reset_index().groupby(['num_cols_missing','pct_cols_missing']).count().rename(index=str, columns={'index': 'num_rows'}).reset_index()
@@ -106,6 +112,9 @@ X_train_explore.drop([x for x in df if x.endswith('_outliers')], 1, inplace = Tr
 ##################################################################################################################
 
 def elbow_plot(X_train_scaled, cluster_vars):
+    '''
+    Given X_train and cluster variables plots an elbow_plot
+    '''
     # elbow method to identify good k for us
     ks = range(1,10)
     
@@ -131,6 +140,9 @@ def elbow_plot(X_train_scaled, cluster_vars):
 ##################################################################################################################
 
 def run_kmeans(X_train, X_train_scaled, k, cluster_vars, cluster_col_name):
+    '''
+    Creates a kemeans object and creates a dataframe with cluster information
+    '''
     # create kmeans object
     kmeans = KMeans(n_clusters = k, random_state = 13)
     kmeans.fit(X_train_scaled[cluster_vars])
@@ -145,6 +157,9 @@ def run_kmeans(X_train, X_train_scaled, k, cluster_vars, cluster_col_name):
 ##################################################################################################################
 
 def kmeans_transform(X_scaled, kmeans, cluster_vars, cluster_col_name):
+    '''
+    Takes in a dataframe and returns custers that have been predicted on that dataframe
+    '''
     kmeans.transform(X_scaled[cluster_vars])
     trans_clusters = \
         pd.DataFrame(kmeans.predict(X_scaled[cluster_vars]),
@@ -156,6 +171,9 @@ def kmeans_transform(X_scaled, kmeans, cluster_vars, cluster_col_name):
 ##################################################################################################################
 
 def get_centroids(cluster_vars, cluster_col_name, kmeans):
+    '''
+    Takes in kmeans and cluster variables to produce centroids
+    '''
     centroid_col_names = ['centroid_' + i for i in cluster_vars]
 
     centroids = pd.DataFrame(kmeans.cluster_centers_, 
@@ -166,6 +184,9 @@ def get_centroids(cluster_vars, cluster_col_name, kmeans):
 ##################################################################################################################
 
 def add_to_train(train_clusters, centroids, X_train, X_train_scaled, cluster_col_name):
+    '''
+    Takes in a datafrme, clusters, centroids and returns a new dataframe with all information concated together
+    '''
     # concatenate cluster id
     X_train2 = pd.concat([X_train, train_clusters], axis=1)
 
@@ -184,5 +205,13 @@ def add_to_train(train_clusters, centroids, X_train, X_train_scaled, cluster_col
                             set_index(X_train.index)
     
     return X_train2, X_train_scaled2
+
+##################################################################################################################
+
+def r2(x, y):
+    '''
+    Takes in x and y and returns pearsons correlation coefficent
+    '''
+    return stats.pearsonr(x, y)[0] ** 2
 
 ##################################################################################################################
