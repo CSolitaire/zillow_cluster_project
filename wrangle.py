@@ -21,7 +21,7 @@ def get_connection(db, user=user, host=host, password=password):
 
 def new_zillow_data():
     '''
-    This function reads the mall customer data from the Codeup db into a df,
+    This function reads the Zillow customer data from the Codeup db into a df,
     write it to a csv file, and returns the df. 
     '''
     sql_query = '''
@@ -141,7 +141,7 @@ def clean_zillow_data(df):
     df.loc[~mask, 'bed_bath_ratio'] = df.loc[mask, 'bed_bath_ratio'].max()
     df.dropna(inplace=True)
     df_la, df_v, df_o = county_df(df)
-    return df_la, df_v, df_o
+    return df_la, df_v, df_o, df
 
 ###########################################################
 
