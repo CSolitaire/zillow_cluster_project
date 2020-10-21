@@ -8,7 +8,6 @@
 2. Create features from data clusters (or cluster centers as centroids) and use them to train a regressio model to predict logerror.
 3. Determine the drivers of logerror in Zillows Zestimate.
 4. Develop and deliver a professional jupyter notebook outlineing your experience and familiarity with the process of data clustering, module creation, and technical delivery.
-5. Develop and deliver a professional jupyter notebook outlineing your experience and familiarity with the process of data clustering, module creation, and technical delivery¶ 
 
 ## Executive Summary: 
 
