@@ -1,4 +1,4 @@
-# Zillow Regression Project
+# Zillow Clustering Project
 
 ### Author: Corey Solitaire
 
