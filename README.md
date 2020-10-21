@@ -64,9 +64,8 @@ User will need env.py file with access to Codeup database
 
 ## Setting
 
-Setting: 
 - Professional
 
 ## Workflow
 
-![http://www.uvm.edu/~cbcafier/assets/pipeline.jpg]
+![](https://github.com/CSolitaire/zillow_cluster_project/blob/main/pipeline%20copy.jpg)
