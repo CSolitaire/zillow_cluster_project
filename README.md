@@ -1,7 +1,7 @@
 # Zillow Regression Project
 
 ### Author: Corey Solitaire
-***
+
 ## Project Goals: 
 
 1. Explore features of Zillow data set and create 3 clusters that are statistically significant in their relationship to logerror.
@@ -31,10 +31,12 @@ Modeling produced an average RMSE of 0.17%, however that error represents a -6.6
     Other Counties?: This model may work better on other CA counties, further investigation is necessary.
 
 ## Instructions for Replication
+
 Files are located in Git Repo [here](https://github.com/CSolitaire/zillow_cluster_project)
 User will need env.py file with access to Codeup database 
 
 ## Data Dictionary
+
   ---                            ---
 | **Feature**                  | **Definition**                                                |
 | ---                          | ---                                                           |
@@ -55,4 +57,16 @@ User will need env.py file with access to Codeup database
 | **Target**                   | **Definition**                                                |
 | ---                          | ---                                                           |
 | logerror                     | Tax value in dollars                                          |
-***
+
+## Audience
+
+- Zillow Data Science Team 
+
+## Setting
+
+Setting: 
+- Professional
+
+## Workflow
+
+![http://www.uvm.edu/~cbcafier/assets/pipeline.jpg]
